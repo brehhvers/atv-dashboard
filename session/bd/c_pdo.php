@@ -1,23 +1,21 @@
 <?php
-require("con_c.php");
-
-
-function inserirRegistro($pdo, $nome, $email){
-$sql = "INSERT INTO cliente(nome, email) VALUES (:nome_cliente, :email_cliente)";
+require("pdo_con.php");
+function inserirRegistro($pdo, $usnm, $email, $psswd){
+$sql = "INSERT INTO usuarios(username, email, password_hash) VALUES (:username, :email, :psswd)";
 $stmt = $pdo->prepare($sql);
-$stmt->bindParam(':nome_cliente', $nome, PDO::PARAM_STR);
-$stmt->bindParam(':email_cliente', $email, PDO::PARAM_STR);
+$stmt->bindParam(':username', $usnm, PDO::PARAM_STR);
+$stmt->bindParam(':email', $email, PDO::PARAM_STR);
+$stmt->bindParam(':psswd', $psswd, PDO::PARAM_STR);
 return $stmt->execute();
 echo("teste");
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
-    $nome = strtolower($_POST['nome']) ;
+    $usnm = strtolower($_POST['username']) ;
     $email = strtolower($_POST['email']);
+    $psswd = ($_POST['password']);
 
-    if(inserirRegistro($pdo, $nome, $email)){
-       $msg = ("Record inserted successfully");
-    }else{
+    if(!inserirRegistro($pdo, $usnm, $email, $psswd)){
         $msg = ("Error: Unable to insert new record");
     }
 

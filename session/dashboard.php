@@ -24,16 +24,17 @@
     <p>BEM-VINDA(O)</p>
 
 <form action="" method="POST">
-<p>Para cadastrar um novo cliente, insira os dados:</p>
-<input type="text" name="nome" placeholder="nome">
+<p>Para cadastrar um novo usuario, insira os dados:</p>
+<input type="text" name="username" placeholder="username">
 <input type="email" name="email" placeholder="email">
+<input type="text" name="password" placeholder="password">
 <br>
 <input type="submit" value="Confirmar" name="submit">
 </form>
 <br>
 
 <?php foreach($registros as $registro): ?>
-    <li><?php echo $registro['nome']; ?> - <?php echo $registro['email'] ?></li>
+    <li><?php echo $registro['id']; ?> - <?php echo $registro['username']; ?> - <?php echo $registro['email']  ?> - <?php echo $registro['password_hash']  ?> • <a href="d_pdo.php?id=<?php echo $registro['id']; ?>">EXCLUIR </a></li>
 <?php endforeach; ?>
 
     <a href="gera_pdf.php" target="_blank">Gerar PDF</a> <br>
